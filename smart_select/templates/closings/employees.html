@@ -4,6 +4,6 @@
 {% block content %}
     <h1>Employees</h1>
     {% for employee in employees  %}
-            <p>{{ employee.first_name }} works at {{ employee.firm }}</p>
+        <p>{{ employee.full_name }} works at {{ employee.firm }}</p>
     {% endfor %}
 {% endblock content %}
