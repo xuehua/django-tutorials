@@ -1,0 +1,261 @@
+[
+{
+  "model": "closings.state",
+  "pk": 1,
+  "fields": {
+    "name": "California"
+  }
+},
+{
+  "model": "closings.state",
+  "pk": 3,
+  "fields": {
+    "name": "Texas"
+  }
+},
+{
+  "model": "closings.state",
+  "pk": 4,
+  "fields": {
+    "name": "Oregon"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 1,
+  "fields": {
+    "state": 3,
+    "name": "Austin"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 2,
+  "fields": {
+    "state": 1,
+    "name": "San Jose"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 3,
+  "fields": {
+    "state": 1,
+    "name": "Cupertino"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 4,
+  "fields": {
+    "state": 4,
+    "name": "Portland"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 5,
+  "fields": {
+    "state": 3,
+    "name": "Houston"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 10,
+  "fields": {
+    "state": 1,
+    "name": "Berkeley"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 11,
+  "fields": {
+    "state": 1,
+    "name": "Milpitas"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 12,
+  "fields": {
+    "state": 1,
+    "name": "Redwood"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 13,
+  "fields": {
+    "state": 1,
+    "name": "Palo Alto"
+  }
+},
+{
+  "model": "closings.city",
+  "pk": 14,
+  "fields": {
+    "state": 1,
+    "name": "Fresno"
+  }
+},
+{
+  "model": "closings.firm",
+  "pk": 1,
+  "fields": {
+    "firm": "Google Inc"
+  }
+},
+{
+  "model": "closings.firm",
+  "pk": 2,
+  "fields": {
+    "firm": "Apple Inc"
+  }
+},
+{
+  "model": "closings.firm",
+  "pk": 3,
+  "fields": {
+    "firm": "Intel Inc"
+  }
+},
+{
+  "model": "closings.firm",
+  "pk": 4,
+  "fields": {
+    "firm": "Tesla Inc"
+  }
+},
+{
+  "model": "closings.firmlocation",
+  "pk": 1,
+  "fields": {
+    "firm": 1,
+    "state": 1,
+    "city": 1,
+    "street": "1st St"
+  }
+},
+{
+  "model": "closings.firmlocation",
+  "pk": 2,
+  "fields": {
+    "firm": 1,
+    "state": 1,
+    "city": 3,
+    "street": "2nd St"
+  }
+},
+{
+  "model": "closings.firmlocation",
+  "pk": 3,
+  "fields": {
+    "firm": 2,
+    "state": 1,
+    "city": 3,
+    "street": "Cupertino St"
+  }
+},
+{
+  "model": "closings.firmlocation",
+  "pk": 4,
+  "fields": {
+    "firm": 2,
+    "state": 3,
+    "city": 1,
+    "street": "Washington St"
+  }
+},
+{
+  "model": "closings.firmlocation",
+  "pk": 6,
+  "fields": {
+    "firm": 3,
+    "state": 3,
+    "city": 1,
+    "street": "Ross Rd"
+  }
+},
+{
+  "model": "closings.firmlocation",
+  "pk": 7,
+  "fields": {
+    "firm": 1,
+    "state": 1,
+    "city": 12,
+    "street": "Washington St"
+  }
+},
+{
+  "model": "closings.employee",
+  "pk": 1,
+  "fields": {
+    "first_name": "Albert",
+    "last_name": "Einstein",
+    "firm": 1,
+    "firm_location": 1
+  }
+},
+{
+  "model": "closings.employee",
+  "pk": 2,
+  "fields": {
+    "first_name": "Tom",
+    "last_name": "Hanks",
+    "firm": 2,
+    "firm_location": 3
+  }
+},
+{
+  "model": "closings.employee",
+  "pk": 3,
+  "fields": {
+    "first_name": "Steve",
+    "last_name": "Hankers",
+    "firm": 2,
+    "firm_location": 3
+  }
+},
+{
+  "model": "closings.employee",
+  "pk": 4,
+  "fields": {
+    "first_name": "White",
+    "last_name": "Smith",
+    "firm": 1,
+    "firm_location": 1
+  }
+},
+{
+  "model": "closings.employee",
+  "pk": 5,
+  "fields": {
+    "first_name": "Rodney",
+    "last_name": "Macey",
+    "firm": 3,
+    "firm_location": 6
+  }
+},
+{
+  "model": "closings.employee",
+  "pk": 6,
+  "fields": {
+    "first_name": "Justin",
+    "last_name": "Pitt",
+    "firm": 1,
+    "firm_location": 2
+  }
+},
+{
+  "model": "closings.employee",
+  "pk": 7,
+  "fields": {
+    "first_name": "Tim",
+    "last_name": "Cook",
+    "firm": 2,
+    "firm_location": 3
+  }
+}
+]
