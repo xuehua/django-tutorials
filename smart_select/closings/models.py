@@ -96,4 +96,4 @@ class Employee(models.Model):
             raise ValidationError('The employee already exists.')
 
     def __str__(self):
-        return f'{self.last_name}, {self.first_name} at {self.firm_location}'
+        return f'{self.full_name} at {self.firm_location}'
