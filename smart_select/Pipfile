@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 django-smart-selects = "*"
+pysolr = "*"
+django-haystack = "*"
 
 [requires]
 python_version = "3"
