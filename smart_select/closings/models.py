@@ -67,6 +67,7 @@ class FirmLocation(models.Model):
     def __str__(self):
         return f'{self.firm}: {self.city}'
 
+
 class Employee(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -79,6 +80,14 @@ class Employee(models.Model):
             auto_choose=True,
             sort=True)
 
+    friends = models.ManyToManyField("self")
+    trainees = models.ManyToManyField("self", 
+                    through='Training', 
+                    related_name="trainers", 
+                    symmetrical=False)
+    workers = models.ManyToManyField("self", 
+                    related_name="supervisors", 
+                    symmetrical=False)
     @property
     def full_name(self):
         return f"{self.last_name}, {self.first_name}"
@@ -97,3 +106,20 @@ class Employee(models.Model):
 
     def __str__(self):
         return f'{self.full_name} at {self.firm_location}'
+
+class Organization(models.Model):
+    name = models.CharField(max_length=128)
+    members = models.ManyToManyField(Employee, through='Membership', symmetrical=False)
+
+    def __str__(self):
+        return self.name
+
+class Membership(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    date_joined = models.DateTimeField(auto_now_add=True)
+
+class Training(models.Model):
+    trainer = models.ForeignKey(Employee, related_name='trainee_set', on_delete=models.CASCADE)
+    trainee = models.ForeignKey(Employee, related_name='trainer_set', on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50)

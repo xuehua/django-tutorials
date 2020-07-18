@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import (State, City, FirmLocation, Employee, Firm)
+from .models import (State, City, FirmLocation, Employee, Firm,
+                    Organization, Membership, Training)
 # Register your models here.
 
 @admin.register(State)
@@ -21,3 +22,15 @@ class FirmAdmin(admin.ModelAdmin):
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'firm', 'firm_location')
     search_fields = ('firm', 'firm_location')
+
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Membership)
+class MembershipAdmin(admin.ModelAdmin):
+    list_display = ('employee', 'organization')
+
+@admin.register(Training)
+class TrainingAdmin(admin.ModelAdmin):
+    list_display = ('subject', 'trainer', 'trainee')

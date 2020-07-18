@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Organizations{% endblock title %}
+{% block content %}
+    <h1>Organizations</h1>
+    {% for organization in organizations %}
+        {% with total_members=organization.members.count %}
+        <h2>{{ organization.name }} ({{ total_members }} member{{ total_members|pluralize }}) </h2>
+        {% endwith %}
+        {% for member in organization.members.all %}
+            <ul>
+                <li>{{ member }}</li>
+            </ul>
+        {% empty %}{% endfor %}
+    {% empty %}
+        No organizations yet
+    {% endfor %}
+{% endblock content %}
