@@ -1,2 +1,4 @@
 settings.json
+Pipfile.lock
+*.pyc
 __pycache__
