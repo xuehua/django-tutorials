@@ -23,3 +23,13 @@ class BlogPage(TemplateView):
         #     # use django-haystack generated schema with modifications.
         #     search_details = [result.title for result in results]
         return render(request, self.template_name, {'results': results})
+
+class BlogAutoCompletePage(TemplateView):
+    def get(self, request, **kwargs):
+        return render(request, self.template_name, {})
+
+    def post(self, request, **kwargs):
+        query = request.POST.get('query', '')
+        results = SearchQuerySet().models(Blog).autocomplete(description_auto=query).load_all()
+        
+        return render(request, self.template_name, {'results': results})
