@@ -30,14 +30,8 @@ class BlogAutoCompletePage(TemplateView):
     def get(self, request, **kwargs):
         return render(request, self.template_name, {})
 
-#     def post(self, request, **kwargs):
-#         query = request.POST.get('query', '')
-#         results = SearchQuerySet().models(Blog).autocomplete(description_auto=query).load_all()
-        
-#         return render(request, self.template_name, {'results': results})
-
-def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(description_auto=request.GET.get('q', '')).load_all()
+def autocomplete_title(request):
+    sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get('q', '')).load_all()
     suggestions = [result.title for result in sqs]
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
@@ -45,3 +39,11 @@ def autocomplete(request):
         'results': suggestions
     })
     return HttpResponse(the_data, content_type='application/json')
+
+class BlogSearchDetailPage(TemplateView):
+    template_name = 'blog_search_detail.html'
+    def get(self, request, **kwargs):
+        return render(request, self.template_name, {})
+
+def autocomplete_detail(request):
+    pass

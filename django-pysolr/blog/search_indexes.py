@@ -13,6 +13,7 @@ class BlogIndex(indexes.SearchIndex, indexes.Indexable):
     short_description = indexes.CharField(model_attr='short_description')
     # add autocomplete
     description_auto = indexes.EdgeNgramField(model_attr='description')
+    title_auto = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
         return Blog

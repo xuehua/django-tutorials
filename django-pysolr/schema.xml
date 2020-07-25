@@ -64,6 +64,7 @@
             <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
         </analyzer>
     </fieldType>
+
     <fieldType name="ngram" class="solr.TextField" >
         <analyzer type="index">
             <tokenizer class="solr.KeywordTokenizerFactory"/>
@@ -83,6 +84,12 @@
     <field name="text" type="text_en" indexed="true" stored="true" multiValued="false" />
     
     <field name="title" type="text_en" indexed="true" stored="true" multiValued="false" />
+    
+    <field name="short_description" type="text_en" indexed="true" stored="true" multiValued="false" />
+    
+    <field name="description_auto" type="edge_ngram" indexed="true" stored="true" multiValued="false" />
+    
+    <field name="title_auto" type="edge_ngram" indexed="true" stored="true" multiValued="false" />
     
     <uniqueKey>id</uniqueKey>
 

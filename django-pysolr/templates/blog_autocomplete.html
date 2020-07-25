@@ -11,7 +11,7 @@
     $(function() {
         $('#q').autocomplete({
             source: function (request, response) { 
-                $.getJSON("autocomplete/?q=" + request.term, function (data) { 
+                $.getJSON("autocomplete_title/?q=" + request.term, function (data) { 
                     response(data.results) 
                 });
             } 
