@@ -6,7 +6,7 @@ urlpatterns = [
         views.BlogPage.as_view(template_name='blog_search.html'), 
         name='blog-search'),
     path('search/title', 
-        views.BlogAutoCompletePage.as_view(),
+        views.BlogSearchTitlePage.as_view(),
         name = 'blog-search-title'),
     path('search/autocomplete_title/', 
         views.autocomplete_title, 

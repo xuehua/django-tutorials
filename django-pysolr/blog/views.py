@@ -25,8 +25,8 @@ class BlogPage(TemplateView):
         #     search_details = [result.title for result in results]
         return render(request, self.template_name, {'results': results})
 
-class BlogAutoCompletePage(TemplateView):
-    template_name = 'blog_autocomplete.html'
+class BlogSearchTitlePage(TemplateView):
+    template_name = 'blog_search_title.html'
     def get(self, request, **kwargs):
         return render(request, self.template_name, {})
 
