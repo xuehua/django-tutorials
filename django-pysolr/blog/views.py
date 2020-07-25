@@ -32,7 +32,7 @@ class BlogSearchTitlePage(TemplateView):
 
 def autocomplete_title(request):
     sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get('q', '')).load_all()
-    suggestions = [result.title for result in sqs]
+    suggestions = [result.object.title for result in sqs]
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
     the_data = json.dumps({
@@ -46,4 +46,17 @@ class BlogSearchDetailPage(TemplateView):
         return render(request, self.template_name, {})
 
 def autocomplete_detail(request):
-    pass
+    sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get('q', '')).load_all()
+    details = []
+    for result in sqs:
+        blog = result.object
+        details.append({'id':blog.id, 
+                'title':blog.title, 
+                'short_description': blog.short_description})
+    
+    # Make sure you return a JSON object, not a bare list.
+    # Otherwise, you could be vulnerable to an XSS attack.
+    the_data = json.dumps({
+        'results':details
+    })
+    return HttpResponse(the_data, content_type='application/json')
