@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Blog search with details{% endblock title%}
+{% block content %}
+    <div class="ui-widget">
+    <label for="q">Query: </label>
+    <input id="q">
+    </div>   
+    <input type="hidden" id="blog-id">
+    <h2 id="blog-title"></h2> 
+    <p id="blog-description"></p>  
+
+{% endblock content %}
+{% block domready %} 
+    
+    $('#q').autocomplete({    
+        source: function (request, response) { 
+            $.getJSON("autocomplete/?q=" + request.term, function (data) { 
+                response(data.results) 
+            });
+        },
+        focus: function(event, ui) {
+            $("#q").val(ui.item.label);
+            return false;
+        },
+        select: function(event, ui) {
+            $("#q").val(ui.item.label);
+            $("#blog-title").html(ui.item.label)
+            $("#blog-id").val(ui.item.value);
+            $("#blog-description").html(ui.item.desc);
+            return false;
+        }
+    })
+    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+        console.log('Test');
+      return $( "<li>" )
+        .append( "<div>" + item.label + "<br>" + item.desc + "</div>" )
+        .appendTo( ul );
+    };
+    
+{% endblock domready %}

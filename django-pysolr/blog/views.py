@@ -51,9 +51,10 @@ def autocomplete_detail(request):
     details = []
     for result in sqs:
         blog = result.object
-        details.append({'id':blog.id, 
-                'title':blog.title, 
-                'short_description': blog.short_description})
+        details.append({
+                'label':blog.title, 
+                'value':blog.id, 
+                'desc': blog.description})
     
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
