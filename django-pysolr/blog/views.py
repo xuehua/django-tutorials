@@ -8,8 +8,8 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-class BlogPage(TemplateView):
-    template_name = "blog/blog_search.html"
+class SearchView(TemplateView):
+    template_name = "blog/search.html"
     def get(self, request, **kwargs):
         return render(request, self.template_name, {})
 
@@ -26,8 +26,8 @@ class BlogPage(TemplateView):
         #     search_details = [result.title for result in results]
         return render(request, self.template_name, {'results': results})
 
-class BlogSearchPage(TemplateView):
-    template_name = 'blog/search.html'
+class SearchAutocompleteView(TemplateView):
+    template_name = 'blog/search_autocomplete.html'
     def get(self, request, **kwargs):
         return render(request, self.template_name, {})
 
