@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Blog search with details{% endblock title%}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Search with autocompletion</h1>
+                <div class="ui-widget">
+                <label for="q1">Autocomplete only title: </label>
+                <input id="q1">
+                <p></p>
+                <h3 id="blog-title1"></h3> 
+                <p id="blog-description1"></p>
+                <p></p>
+                <div class="ui-widget">
+                <label for="q2">Autocomplete with details: </label>
+                <input id="q2">
+                </div>   
+                <input type="hidden" id="blog-id">
+                <h3 id="blog-title2"></h3> 
+                <p id="blog-description2"></p>
+            </div> 
+        </div>
+    </div>
+    
+{% endblock content %}
+{% block domready %} 
+    $('#q1').autocomplete({
+        source: function (request, response) { 
+            $.getJSON("title/?q=" + request.term, function (data) { 
+                response(data.results) 
+            });
+        },
+        select: function(event, ui) {
+            $("#q1").val(ui.item.label);
+            $("#blog-title1").html(ui.item.label)
+            $("#blog-description1").html(ui.item.desc);
+            return false;
+        }         
+    });
+
+    $('#q2').autocomplete({    
+        source: function (request, response) { 
+            $.getJSON("detail/?q=" + request.term, function (data) { 
+                response(data.results) 
+            });
+        },
+        focus: function(event, ui) {
+            $("#q2").val(ui.item.label);
+            return false;
+        },
+        select: function(event, ui) {
+            $("#q2").val(ui.item.label);
+            $("#blog-title2").html(ui.item.label)
+            $("#blog-id").val(ui.item.value);
+            $("#blog-description2").html(ui.item.desc);
+            return false;
+        }
+    })
+    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+        console.log('Test');
+      return $( "<li>" )
+        .append( "<div>" + item.label + "<br>" + item.desc + "</div>" )
+        .appendTo( ul );
+    };
+    
+{% endblock domready %}

@@ -5,8 +5,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="ui-widget">
-                <label for="q">Query: </label>
-                <input id="q">
+                <label for="q1">autocompletion only title: </label>
+                <input id="q1">
+                <div class="ui-widget">
+                <label for="q2">autocompletion with details: </label>
+                <input id="q2">
                 </div>   
                 <input type="hidden" id="blog-id">
                 <h2 id="blog-title"></h2> 
@@ -17,19 +20,26 @@
     
 {% endblock content %}
 {% block domready %} 
-    
-    $('#q').autocomplete({    
+    $('#q1').autocomplete({
         source: function (request, response) { 
-            $.getJSON("autocomplete/?q=" + request.term, function (data) { 
+            $.getJSON("autocomplete/title/?q=" + request.term, function (data) { 
+                response(data.results) 
+            });
+        } 
+    });
+
+    $('#q2').autocomplete({    
+        source: function (request, response) { 
+            $.getJSON("autocomplete/detail/?q=" + request.term, function (data) { 
                 response(data.results) 
             });
         },
         focus: function(event, ui) {
-            $("#q").val(ui.item.label);
+            $("#q2").val(ui.item.label);
             return false;
         },
         select: function(event, ui) {
-            $("#q").val(ui.item.label);
+            $("#q2").val(ui.item.label);
             $("#blog-title").html(ui.item.label)
             $("#blog-id").val(ui.item.value);
             $("#blog-description").html(ui.item.desc);

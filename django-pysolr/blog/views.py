@@ -26,8 +26,8 @@ class BlogPage(TemplateView):
         #     search_details = [result.title for result in results]
         return render(request, self.template_name, {'results': results})
 
-class BlogSearchTitlePage(TemplateView):
-    template_name = 'blog/search/title.html'
+class BlogSearchPage(TemplateView):
+    template_name = 'blog/search.html'
     def get(self, request, **kwargs):
         return render(request, self.template_name, {})
 
@@ -41,10 +41,6 @@ def autocomplete_title(request):
     })
     return HttpResponse(the_data, content_type='application/json')
 
-class BlogSearchDetailPage(TemplateView):
-    template_name = 'blog/search/detail.html'
-    def get(self, request, **kwargs):
-        return render(request, self.template_name, {})
 
 def autocomplete_detail(request):
     sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get('q', '')).load_all()
