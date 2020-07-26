@@ -63,7 +63,7 @@ for our development.
 
 To install django-haystack from Github source in the virtual environment, we 
 can do the following 
-pipenv install -e git+https://github.com/django-haystack/django-haystack.git#egg=django-haystack
+pipenv install -e git+https://github.com/django-haystack/django-haystack.git@eee0db1#egg=django-haystack
 
 Current head of the django-haystack is eee0db1 checked in Jun 17, 2020.
 
