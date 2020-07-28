@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import (TemplateView, ListView, DetailView)
+from django.views.generic.edit import CreateView
 from .models import Blog
 from haystack.query import SearchQuerySet
 import json
@@ -58,3 +59,16 @@ def autocomplete_detail(request):
         'results':details
     })
     return HttpResponse(the_data, content_type='application/json')
+
+class BlogListView(ListView):
+    model = Blog
+    template_name = "blog/home.html"
+
+class BlogDetailView(DetailView):
+    model = Blog    
+    template_name = "blog/detail.html"
+
+class BlogCreateView(CreateView):
+    model = Blog
+    fields = ['title', 'short_description', 'description']
+    template_name = "blog/create.html"
