@@ -8,7 +8,7 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     description = models.TextField(blank=False, null=False)
-    short_description = models.TextField(blank=False, null=False)
+    summary = models.CharField(max_length=200, blank=False, null=False)
 
     class Meta:
         verbose_name = 'Blog'

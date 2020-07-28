@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Update blog{% endblock title %}
+{% block content %}
+    <h1>Update blog</h1>
+    <form action="" method="post">
+        <table> {{ form.as_table }} </table>
+        {% csrf_token %}
+        <input type="submit" value="Save">
+    </form>
+{% endblock content %}

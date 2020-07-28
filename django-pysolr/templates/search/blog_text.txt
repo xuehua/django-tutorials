@@ -1,4 +1,4 @@
 {{ object.id }}
 {{ object.title }}
 {{ object.description }}
-{{ object.short_description }}
+{{ object.summary }}

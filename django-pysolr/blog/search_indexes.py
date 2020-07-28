@@ -10,7 +10,7 @@ class BlogIndex(indexes.SearchIndex, indexes.Indexable):
     )
     title = indexes.CharField(model_attr='title')
     #description = indexes.CharField(model_attr='description')
-    short_description = indexes.CharField(model_attr='short_description')
+    summary = indexes.CharField(model_attr='summary')
     # add autocomplete
     description_auto = indexes.EdgeNgramField(model_attr='description')
     title_auto = indexes.EdgeNgramField(model_attr='title')

@@ -1,10 +1,11 @@
+import json
 from django.shortcuts import render
 from django.views.generic import (TemplateView, ListView, DetailView)
-from django.views.generic.edit import CreateView
-from .models import Blog
+from django.views.generic.edit import (CreateView, UpdateView, DeleteView)
 from haystack.query import SearchQuerySet
-import json
 from django.http import HttpResponse
+from django.urls import reverse_lazy
+from .models import Blog
 
 # Create your views here.
 
@@ -70,5 +71,15 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ['title', 'short_description', 'description']
+    fields = ['title', 'summary', 'description']
     template_name = "blog/create.html"
+
+class BlogUpdateView(UpdateView):
+    model = Blog
+    fields = ['title', 'summary', 'description']
+    template_name = "blog/update.html"
+
+class BlogDeleteView(DeleteView):
+    model = Blog
+    template_name = "blog/delete.html"
+    success_url = reverse_lazy("blog_list")
