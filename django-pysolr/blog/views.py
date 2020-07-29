@@ -104,26 +104,38 @@ class BlogDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     template_name = "blog/detail.html"
     permission_required = 'blog.view_blog'
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Blog
     fields = ['title', 'summary', 'description']
     template_name = "blog/create.html"
     permission_required = 'blog.add_blog'
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.author = self.request.user
-        self.object.save()
+        object = form.save(commit=False)
+        object.author = self.request.user
+        object.save()
         return super().form_valid(form)
 
 class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Blog
     fields = ['title', 'summary', 'description']
     template_name = "blog/update.html"
-    permission_required = 'blogg.change_blog'
+    permission_required = 'blog.change_blog'
+
+    def has_permission(self):
+        if self.get_object().author != self.request.user:
+            self.permission_denied_message = 'Cannot update the blog. It is not your blog!'
+            return False
+        return super().has_permission()
 
 class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Blog
     template_name = "blog/delete.html"
     success_url = reverse_lazy("blog_list")
     permission_required = 'blog.delete_blog'
+
+    def has_permission(self):
+        if self.get_object().author != self.request.user:
+            self.permission_denied_message = 'Cannot delete the blog. It is not your blog!'
+            return False
+        return super().has_permission()
