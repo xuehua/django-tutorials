@@ -1,5 +1,10 @@
 import json
-from django.shortcuts import render
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import (LoginRequiredMixin, 
+                                        PermissionRequiredMixin,
+                                        UserPassesTestMixin)
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import (TemplateView, ListView, DetailView)
 from django.views.generic.edit import (CreateView, UpdateView, DeleteView)
 from haystack.query import SearchQuerySet
@@ -61,14 +66,51 @@ def autocomplete_detail(request):
     })
     return HttpResponse(the_data, content_type='application/json')
 
-class BlogListView(ListView):
+class BlogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Blog
     template_name = "blog/home.html"
+    permission_required = 'blog.view_blog'
+
+    def has_permission(self):
+        if not super().has_permission():
+            self.permission_denied_message = "You don't have permission to view blogs"
+            return False
+        return True
+
+# class FollowingBlogListView(LoginRequiredMixin, BlogListView):
+#     def get_queryset(self):
+#         sqs = super().get_queryset()
+#         username = self.kwargs['username']
+#         following = self.request.user.following.all().values_list('username', flat=True)
+        
+#         user = get_object_or_404(get_user_model(), username=username)
+#         if username not in following:
+#             raise PermissionDenied("Not following the user")
+#         return sqs.filter(author=user)
 
 class FollowingBlogListView(BlogListView):
+
+       
+    #permission_denied_message = 'Access denied'
+    
+    #def get_permission_denied_message(self):
+    #    return f"Access denied, you are not following '{self.kwargs['username']}'."
+    
+    #def test_func(self):
+    #    following = self.request.user.following.all().values_list('username', flat=True)
+    #    return self.kwargs['username'] in following
+    def has_permission(self):
+        if not super().has_permission():
+            return False
+
+        self.permission_denied_message = f"Access denied, you are not following '{self.kwargs['username']}'."
+        following = self.request.user.following.all().values_list('username', flat=True)
+        return self.kwargs['username'] in following
+
     def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(author__in=self.request.user.following.all())
+        sqs = super().get_queryset()
+        user = get_object_or_404(get_user_model(), username=self.kwargs['username'])
+        return sqs.filter(author=user)
 
 class MyBlogListView(BlogListView):
     def get_queryset(self):

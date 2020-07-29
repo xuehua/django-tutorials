@@ -8,7 +8,7 @@ urlpatterns = [
     path('mine/', 
         views.MyBlogListView.as_view(), 
         name='blog_list_mine'),
-    path('following/', 
+    path('following/<username>/', 
         views.FollowingBlogListView.as_view(), 
         name='blog_list_following'),
     path('create/', 

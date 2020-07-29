@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Permission Denied{% endblock title%}
+{% block content %}
+    <h3>Exception for user '{{ request.user }}'</h3>
+    {% if exception %}
+    <h2>{{ exception }}</h2>
+    {% else %}
+    <h2>Permission Denied</h2>
+    {% endif %}    
+{% endblock content %}
