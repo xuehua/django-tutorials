@@ -2,9 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', 
-        views.BlogListView.as_view(), 
-        name='blog_list'),
+    path('all/', 
+        views.AllBlogListView.as_view(), 
+        name='blog_list_all'),
     path('mine/', 
         views.MyBlogListView.as_view(), 
         name='blog_list_mine'),

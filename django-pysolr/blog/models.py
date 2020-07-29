@@ -14,6 +14,9 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'Blog'
         verbose_name_plural = 'Blogs'
+        permissions = [
+            ('view_all_blogs', 'Can view all blogs'),
+        ]
 
     def get_absolute_url(self):
         return reverse("blog_detail", kwargs={"pk": self.pk})

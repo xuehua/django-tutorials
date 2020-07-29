@@ -70,35 +70,20 @@ class BlogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Blog
     template_name = "blog/home.html"
     permission_required = 'blog.view_blog'
+    permission_denied_message = "You don't have permission to view blogs"
 
-    def has_permission(self):
-        if not super().has_permission():
-            self.permission_denied_message = "You don't have permission to view blogs"
-            return False
-        return True
+class MyBlogListView(BlogListView):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(author=self.request.user)
 
-# class FollowingBlogListView(LoginRequiredMixin, BlogListView):
-#     def get_queryset(self):
-#         sqs = super().get_queryset()
-#         username = self.kwargs['username']
-#         following = self.request.user.following.all().values_list('username', flat=True)
-        
-#         user = get_object_or_404(get_user_model(), username=username)
-#         if username not in following:
-#             raise PermissionDenied("Not following the user")
-#         return sqs.filter(author=user)
+class AllBlogListView(BlogListView):
+    permission_required = ('blog.view_blog', 'blog.view_all_blogs')
+    permission_denied_message = "You don't have permission to view blog or view all blogs" 
+
 
 class FollowingBlogListView(BlogListView):
 
-       
-    #permission_denied_message = 'Access denied'
-    
-    #def get_permission_denied_message(self):
-    #    return f"Access denied, you are not following '{self.kwargs['username']}'."
-    
-    #def test_func(self):
-    #    following = self.request.user.following.all().values_list('username', flat=True)
-    #    return self.kwargs['username'] in following
     def has_permission(self):
         if not super().has_permission():
             return False
@@ -112,19 +97,18 @@ class FollowingBlogListView(BlogListView):
         user = get_object_or_404(get_user_model(), username=self.kwargs['username'])
         return sqs.filter(author=user)
 
-class MyBlogListView(BlogListView):
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(author=self.request.user)
 
-class BlogDetailView(DetailView):
+
+class BlogDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Blog    
     template_name = "blog/detail.html"
+    permission_required = 'blog.view_blog'
 
 class BlogCreateView(CreateView):
     model = Blog
     fields = ['title', 'summary', 'description']
     template_name = "blog/create.html"
+    permission_required = 'blog.add_blog'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -132,12 +116,14 @@ class BlogCreateView(CreateView):
         self.object.save()
         return super().form_valid(form)
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Blog
     fields = ['title', 'summary', 'description']
     template_name = "blog/update.html"
+    permission_required = 'blogg.change_blog'
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Blog
     template_name = "blog/delete.html"
     success_url = reverse_lazy("blog_list")
+    permission_required = 'blog.delete_blog'
