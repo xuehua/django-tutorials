@@ -65,6 +65,16 @@ class BlogListView(ListView):
     model = Blog
     template_name = "blog/home.html"
 
+class FollowingBlogListView(BlogListView):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(author__in=self.request.user.following.all())
+
+class MyBlogListView(BlogListView):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(author=self.request.user)
+
 class BlogDetailView(DetailView):
     model = Blog    
     template_name = "blog/detail.html"
@@ -73,6 +83,12 @@ class BlogCreateView(CreateView):
     model = Blog
     fields = ['title', 'summary', 'description']
     template_name = "blog/create.html"
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 class BlogUpdateView(UpdateView):
     model = Blog
