@@ -10,6 +10,9 @@ from django.views.generic.edit import (CreateView, UpdateView, DeleteView)
 from haystack.query import SearchQuerySet
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from haystack.forms import FacetedSearchForm
+from haystack.generic_views import FacetedSearchView as BaseFacetedSearchView
+from django.core.paginator import Paginator
 from .models import Blog
 
 # Create your views here.
@@ -139,3 +142,10 @@ class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
             self.permission_denied_message = 'Cannot delete the blog. It is not your blog!'
             return False
         return super().has_permission()
+
+class FacetedSearchView(BaseFacetedSearchView):
+    form_class = FacetedSearchForm
+    facet_fields = ['author']
+    paginated_by = 10
+    template_name = 'blog/facet.html'
+    context_object_name = 'page_object'
