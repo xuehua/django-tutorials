@@ -36,6 +36,14 @@ class SearchView(TemplateView):
         #     search_details = [result.title for result in results]
         return render(request, self.template_name, {'results': results})
 
+class SearchResultsView(TemplateView):
+    template_name = "blog/search_results.html"
+
+    def get(self, request, **kwargs):
+        query = request.GET.get('q', '')
+        results = SearchQuerySet().models(Blog).filter(content=query).load_all()
+        return render(request, self.template_name, {'results': results})
+
 class SearchAutocompleteView(TemplateView):
     template_name = 'blog/search_autocomplete.html'
     def get(self, request, **kwargs):
@@ -149,3 +157,6 @@ class FacetedSearchView(BaseFacetedSearchView):
     paginated_by = 10
     template_name = 'blog/facet.html'
     context_object_name = 'page_object'
+
+class SearchOnlyView(TemplateView):
+    template_name =  'blog/search_only.html'
