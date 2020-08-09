@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock title%}
+{% block content %}
+    <h1>Thank you for your order</h1>
+
+    <p>We ordered {{ order.total }} item{{ order.total|pluralize }} for you and
+    charged your student account on {{ order.created }}</p>
+    
+    <h2><u> You've ordered </u></h2>
+
+    <table>
+        <tr>
+            <th>Fruit Name</th>
+            <th>Quantity</th>
+        </tr>
+        <tr>
+            <td>Strawbery</td>
+            <td> {{ order.strawberry }}
+        </tr>
+        <tr>
+            <td>Raspberry</td>
+            <td>{{ order.raspberry }}</td>
+        </tr>
+        <tr>
+            <td>Apple</td>
+            <td>{{ order.apple }}</td>
+        </tr>
+    </table>
+
+    <h2><u>Your Information</u></h2>
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>{{ order.student_name }}</td>
+        </tr>
+        <tr>
+            <td>Your Student ID:</td>
+            <td>{{ order.student_id }}</td>
+        </tr>
+    </table>   
+{% endblock content %}

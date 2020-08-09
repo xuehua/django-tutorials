@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Dojo Fruit Store{% endblock title%}
+{% block content %}
+    <h1>Dojo Fruit Store</h1>
+    <h2><u>What would you like to buy?</u></h2>
+    <form action="{% url 'checkout' %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.source.errors }}
+
+        <table>
+            <tr> 
+                <th> Fruit Name </th>
+                <th> Quantity </th>
+            </tr>
+                <td> {{ form.strawberry.label }} </td>
+                <td> {{ form.strawberry }} </td>
+            <tr>
+            <tr>
+                <td> {{ form.raspberry.label }} </td>
+                <td> {{ form.raspberry }} </td>
+            </tr>
+            <tr>
+                <td> {{ form.apple.label }} </td>
+                <td> {{ form.apple }} </td>
+            </tr>
+        </table>
+
+        <h2><u>Your Information</u></h2>
+        <table>
+            <tr>
+                <td> {{ form.student_name.label }} </td>
+                <td> {{ form.student_name.errors }} {{ form.student_name }}</td>
+            </tr>
+            <tr>
+                <td> {{ form.student_id.label }} </td>
+                <td> {{ form.student_id.errors }} {{ form.student_id }}</td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Buy me stuff">
+    </form>
+{% endblock content %}
