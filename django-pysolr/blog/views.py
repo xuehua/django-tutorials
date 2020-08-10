@@ -79,7 +79,7 @@ def autocomplete_detail(request):
 
 class BlogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Blog
-    template_name = "blog/home.html"
+    template_name = "blog/list.html"
     permission_required = 'blog.view_blog'
     permission_denied_message = "You don't have permission to view blogs"
 
