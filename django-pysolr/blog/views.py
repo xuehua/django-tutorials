@@ -83,6 +83,7 @@ class BlogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'blog.view_blog'
     permission_denied_message = "You don't have permission to view blogs"
 
+    login_url = 'account_login'
 class MyBlogListView(BlogListView):
     def get_queryset(self):
         qs = super().get_queryset()
