@@ -9,6 +9,9 @@ verify_ssl = true
 pysolr = "==3.9.0"
 django = "==3.0.8"
 django-haystack = {editable = true, git = "https://github.com/django-haystack/django-haystack.git", ref = "eee0db1"}
+django-allauth = "*"
+django-extensions = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.8"

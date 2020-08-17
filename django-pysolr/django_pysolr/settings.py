@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     'haystack',
+    'allauth',
+    'allauth.account',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -134,4 +139,14 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-LOGIN_URL = "/admin/login"
+#LOGIN_URL = "/admin/login"
+LOGIN_REDIRECT_URL = 'blog_list_mine'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
