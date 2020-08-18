@@ -118,7 +118,7 @@ class BlogDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class BlogCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Blog
-    fields = ['title', 'summary', 'description']
+    fields = ['title', 'summary', 'description', 'file_upload']
     template_name = "blog/create.html"
     permission_required = 'blog.add_blog'
 

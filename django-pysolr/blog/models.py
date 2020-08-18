@@ -11,6 +11,8 @@ class Blog(models.Model):
     author = models.ForeignKey(get_user_model(), blank=True, null=True, related_name="blogs", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    file_upload = models.FileField(upload_to="uploads/", null=True, blank=True)
+    
     class Meta:
         verbose_name = 'Blog'
         verbose_name_plural = 'Blogs'
