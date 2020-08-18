@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Books & Authors{% endblock title%}
+{% block content %}
+    <section class="container">
+        <div class="left-half">
+            <h1>Add an Author</h1>
+            <form action="" method="post">
+                <table>{{ form.as_table }}</table>
+                {% csrf_token %}
+                <input type="submit" value="Add">
+            </form>
+        </div>
+        <div class="right-half">
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Action</td>
+                </tr>
+                {% for author in authors %}
+                <tr>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.first_name }} {{ author.last_name }}</td>
+                    <td><a href="{{ author.get_absolute_url }}"> View </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Books & Authors{% endblock title%}
+{% block content %}
+    <h1> {{ book.title }} </h1>
+    <p> ID: {{ book.id}} </p>
+    <p> Description: {{ book.desc }} </p>
+
+    <p>Authors:</p>
+    <ul>
+    {% for author in book.authors.all %}
+        <li>{{ author.first_name }} {{ author.last_name }} </li>
+    {% endfor %}
+    </ul>
+
+    <form action="{% url "add_author" book.id %}" method="post">
+        {{ add_author_form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Add">
+    </form>
+{% endblock content %}

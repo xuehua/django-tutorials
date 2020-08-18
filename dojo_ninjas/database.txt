@@ -1,0 +1,65 @@
+Query: Create three dojos
+>>> from dojo_ninjas_app.models import Dojo, Ninja 
+>>> Dojo.objects.create(name="Kendo Dojo", city="Palo Alto", state="CA")
+<Dojo: Kendo Dojo>
+>>> Dojo.objects.create(name="Kendo Dojo", city="Mountain View", state="CA")
+<Dojo: Kendo Dojo>
+>>> Dojo.objects.create(name="Satsuma Dojo", city="Sunnyvale", state="CA")
+<Dojo: Satsuma Dojo>
+
+Query: Delete the 3 dojos you just created
+>>> Dojo.objects.all().delete()
+(3, {'dojo_ninjas_app.Dojo': 3})
+
+Query: Create 3 more dojos
+>>> Dojo.objects.create(name="Daruma Dojo", city="Redwood", state="CA")
+<Dojo: Daruma Dojo>
+>>> Dojo.objects.create(name="Karate Dojo", city="San Mateo", state="CA")
+<Dojo: Karate Dojo>
+>>> Dojo.objects.create(name="Kendo Dojo", city="Fremont", state="CA")
+<Dojo: Kendo Dojo>
+
+Query: Create 3 ninjas that belong to the first dojo
+>>> dojo=Dojo.objects.all()[0] 
+>>> Ninja.objects.create(first_name='Tom', last_name='Hanks', dojo=dojo)
+<Ninja: Tom Hanks>
+>>> Ninja.objects.create(first_name='Bill', last_name='Gates', dojo=dojo)  
+<Ninja: Bill Gates>
+>>> Ninja.objects.create(first_name='Albert', last_name='Einstein', dojo=dojo)   
+<Ninja: Albert Einstein>
+
+Query: Create 3 Ninjas that belong to the second dojo
+>>> dojo=Dojo.objects.all()[1]  
+>>> Ninja.objects.create(first_name='Nancy', last_name='Gates', dojo=dojo) 
+<Ninja: Nancy Gates>
+>>> Ninja.objects.create(first_name='White', last_name='Smith', dojo=dojo) 
+<Ninja: White Smith>
+>>> Ninja.objects.create(first_name='Ted', last_name='Rosevolt', dojo=dojo)    
+<Ninja: Ted Rosevolt>
+
+Query: Create 3 Ninjas that belong to the third dojo
+>>> dojo=Dojo.objects.all()[2]   
+>>> Ninja.objects.create(first_name='Tom', last_name='Cruise', dojo=dojo)   
+<Ninja: Tom Cruise>
+>>> Ninja.objects.create(first_name='Nicole', last_name='Kidman', dojo=dojo)  
+<Ninja: Nicole Kidman>
+>>> Ninja.objects.create(first_name='Mimi', last_name='Rogers', dojo=dojo)  
+<Ninja: Mimi Rogers>
+
+Query: Retrieve all the ninjas from the first dojo
+>>> dojo=Dojo.objects.all()[0]   
+>>> dojo.ninjas.all()
+<QuerySet [<Ninja: Tom Hanks>, <Ninja: Bill Gates>, <Ninja: Albert Einstein>]>
+
+Query: Retrieve all the ninjas from the last dojo
+>>> dojo.ninjas.all()
+<QuerySet [<Ninja: Tom Cruise>, <Ninja: Nicole Kidman>, <Ninja: Mimi Rogers>]>
+
+Query: Rective the last ninja's dojo
+>>> Ninja.objects.all().last().dojo
+<Dojo: Kendo Dojo>
+
+Query: Create a new dojo
+>>> from dojo_ninjas_app.models import Dojo, Ninja 
+>>> Dojo.objects.create(name="Aikido Dojo", city="Sunnyvale", state="CA", desc="A Japanese martial art learning center")
+<Dojo: Aikido Dojo>
