@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dojos & Ninjas{% endblock title%}
+{% block content %}
+
+<div class="row">
+    <div class="column">
+        <h2>Add a Dojo</h2>
+        <form action="{% url "add_dojo" %}" method="post">
+            <table>
+            {{ add_dojo_form.as_table }}
+            </table>
+            <input type="submit" value="Add">
+            {% csrf_token %}
+        </form>
+    </div>
+    <div class="column">
+        <h2>Add a Ninja</h2>
+        <form action="{% url "add_ninja" %}" method="post">
+            <table>
+            {{ add_ninja_form.as_table }}
+            </table>
+            <input type="submit" value="Add">
+            {% csrf_token %}
+        </form>
+    </div>
+</div>
+<div class="outer">
+    <div class="innder">
+        <h1>All the Dojos</h1>
+        {% for dojo in dojo_list %}
+            <h3>{{ dojo.name }} - {{ dojo.ninjas.count }} <a href="{% url "delete_dojo" dojo.pk %}"><button type="submit" value="Submit">Delete</button></a> </h3>
+            <ul>
+            {% for ninja in dojo.ninjas.all %}
+                <li>{{ ninja }}</li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}    

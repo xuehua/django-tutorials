@@ -27,10 +27,6 @@ article {
   width: 100%;
   padding: 20px;
 }
-
-div {
-    height: 100%;
-}
   
 article {
     position: absolute;
@@ -46,22 +42,13 @@ h1 {
     margin: 0 0 0.75rem 0;
 }
   
-  /* Pattern styles */
-.container {
-    display: table;
-    width: 100%;
+.column {
+  float: left;
+  width: 50%;
 }
   
-.left-half {
-    background-color: #ffff;
-    position: absolute;
-    left: 0px;
-    width: 50%;
-}
-  
-.right-half {
-    background-color: #ffff;
-    position: absolute;
-    right: 0px;
-    width: 50%;
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
