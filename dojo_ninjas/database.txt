@@ -52,11 +52,12 @@ Query: Retrieve all the ninjas from the first dojo
 <QuerySet [<Ninja: Tom Hanks>, <Ninja: Bill Gates>, <Ninja: Albert Einstein>]>
 
 Query: Retrieve all the ninjas from the last dojo
+>>> dojo=Dojo.objects.last()
 >>> dojo.ninjas.all()
 <QuerySet [<Ninja: Tom Cruise>, <Ninja: Nicole Kidman>, <Ninja: Mimi Rogers>]>
 
 Query: Rective the last ninja's dojo
->>> Ninja.objects.all().last().dojo
+>>> Ninja.objects.last().dojo
 <Dojo: Kendo Dojo>
 
 Query: Create a new dojo
