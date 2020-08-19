@@ -11,7 +11,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
-        return self.name
+        return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
