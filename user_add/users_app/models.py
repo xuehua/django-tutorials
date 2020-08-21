@@ -5,7 +5,7 @@ class User(models.Model):
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    email_address = models.EmailField("Email", max_length=254)
+    email_address = models.EmailField("Email", unique=True, max_length=255)
     age = models.IntegerField()
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
