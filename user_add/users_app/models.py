@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 
 class User(models.Model):
@@ -9,6 +10,7 @@ class User(models.Model):
     age = models.IntegerField()
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
