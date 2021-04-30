@@ -15,8 +15,7 @@
           } else {
             /* when there is no children, display ajax request data */
             $.get("ajax/", function (data) {
-              /*$("#ajax").append(data);*/
-              console.log("test");
+              $("#ajax").append(data);
             });
           }
         });
