@@ -7,12 +7,19 @@
     <title>Home Page</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-      function newsClose() {
-        console.log("clicked");
-        $("#ajax").append("<p>Test</p>");
-      }
       $(document).ready(function () {
-        console.log("loaded");
+        $(".ajax").click(function () {
+          if ($("#ajax").has("p").length) {
+            /* remove children of the ajax request data */
+            $("#ajax").empty();
+          } else {
+            /* when there is no children, display ajax request data */
+            $.get("ajax/", function (data) {
+              /*$("#ajax").append(data);*/
+              console.log("test");
+            });
+          }
+        });
       });
     </script>
   </head>
@@ -20,6 +27,6 @@
   <body>
     <h1>This is my homepage</h1>
     <div id="ajax"></div>
-    <button type="button" class="ajax" onclick="newsClose()">Ajax</button>
+    <button type="button" class="ajax">Ajax</button>
   </body>
 </html>
